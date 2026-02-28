@@ -53,7 +53,7 @@ your-project/
 
 ```bash
 # Add the marketplace (one-time)
-claude plugin marketplace add github:charles/autocode-flow
+claude plugin marketplace add github:charles001-wong/autocode-flow
 
 # Install the plugin
 claude plugin install autocode-flow@autocode-flow
@@ -63,7 +63,7 @@ claude plugin install autocode-flow@autocode-flow
 
 ```bash
 # Clone or download to any location
-git clone https://github.com/charles/autocode-flow.git ~/autocode-flow
+git clone https://github.com/charles001-wong/autocode-flow.git ~/autocode-flow
 
 # Install from local path
 claude plugin install --path ~/autocode-flow
