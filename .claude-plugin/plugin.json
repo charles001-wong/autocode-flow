@@ -1,7 +1,7 @@
 {
   "name": "autocode-flow",
   "version": "1.0.0",
-  "description": "Autonomous dev pipeline generator. /autocode-new scans & configures, /autocode <feature> auto-executes plan → tdd → code → test → verify with zero human intervention.",
+  "description": "Autonomous dev pipeline generator. /autocode-flow:autocode-new scans & configures, /autocode-flow:autocode <feature> auto-executes plan → tdd → code → test → verify with zero human intervention.",
   "author": {
     "name": "Charles",
     "url": "https://github.com/charles001-wong"

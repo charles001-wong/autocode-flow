@@ -2,9 +2,9 @@
 name: autocode-flow
 description: >
   Meta-skill that generates a project-specific autonomous development pipeline.
-  Two commands: /autocode-new (setup wizard) and /autocode (run full pipeline).
+  Two commands: /autocode-flow:autocode-new (setup wizard) and /autocode-flow:autocode (run full pipeline).
   User says "autocode-new", "setup autocode", or "generate dev pipeline" to configure.
-  Then uses "/autocode <feature>" to auto-execute plan → tdd → code → test → verify.
+  Then uses "/autocode-flow:autocode <feature>" to auto-execute plan → tdd → code → test → verify.
 version: 1.0.0
 ---
 
@@ -14,22 +14,22 @@ version: 1.0.0
 
 Two commands, one workflow:
 
-1. **`/autocode-new`** — One-time setup. Scans project, asks preferences, generates pipeline config.
-2. **`/autocode <requirement>`** — Runs the full dev pipeline autonomously. Zero human interaction.
+1. **`/autocode-flow:autocode-new`** — One-time setup. Scans project, asks preferences, generates pipeline config.
+2. **`/autocode-flow:autocode <requirement>`** — Runs the full dev pipeline autonomously. Zero human interaction.
 
 ```
-/autocode-new                          (run once per project)
+/autocode-flow:autocode-new                     (run once per project)
     ↓
-/autocode 新增用户登录注册功能           (run per feature)
+/autocode-flow:autocode 新增用户登录注册功能      (run per feature)
     ↓
-Plan → TDD → Code → Test → Verify     (all automatic)
+Plan → TDD → Code → Test → Verify              (all automatic)
     ↓
 Done. Ready to commit.
 ```
 
 ---
 
-## Command: /autocode-new (Setup)
+## Command: /autocode-flow:autocode-new (Setup)
 
 ### Phase 1: Scan
 
@@ -77,14 +77,14 @@ Read templates from `${CLAUDE_PLUGIN_ROOT}/templates/` and write project-specifi
 
 ---
 
-## Command: /autocode (Execute)
+## Command: /autocode-flow:autocode (Execute)
 
 ### Usage
 
 ```
-/autocode 新增用户登录注册功能
-/autocode prd @docs/feature-x-prd.md
-/autocode Fix the race condition in order processing
+/autocode-flow:autocode 新增用户登录注册功能
+/autocode-flow:autocode prd @docs/feature-x-prd.md
+/autocode-flow:autocode Fix the race condition in order processing
 ```
 
 ### Pipeline Phases (all automatic, no human intervention)

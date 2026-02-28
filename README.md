@@ -3,7 +3,7 @@
 **One command, fully autonomous development.** Describe a feature, get working tested code.
 
 ```
-/autocode add user login & registration
+/autocode-flow:autocode add user login & registration
 ```
 
 ```
@@ -16,7 +16,7 @@ PLAN ──► TDD ──► CODE ──► TEST ──► VERIFY ──► DONE
 ### Step 1: Setup (once per project)
 
 ```
-/autocode-new
+/autocode-flow:autocode-new
 ```
 
 Scans your project, asks a few questions, generates a project-specific pipeline config.
@@ -24,9 +24,9 @@ Scans your project, asks a few questions, generates a project-specific pipeline 
 ### Step 2: Build features (every time)
 
 ```
-/autocode add user login & registration
-/autocode prd @docs/user-auth-prd.md
-/autocode Fix the race condition in order processing
+/autocode-flow:autocode add user login & registration
+/autocode-flow:autocode prd @docs/user-auth-prd.md
+/autocode-flow:autocode Fix the race condition in order processing
 ```
 
 The pipeline runs **fully automatically**:
@@ -76,13 +76,13 @@ Add to `~/.claude/settings.json`:
 
 ## What Gets Generated
 
-After `/autocode-new`, your project gets:
+After `/autocode-flow:autocode-new`, your project gets:
 
 ```
 your-project/
 ├── .claude/
 │   ├── commands/
-│   │   └── autocode.md          ← /autocode <feature> entry point
+│   │   └── autocode.md          ← /project:autocode <feature> entry point
 │   └── agents/
 │       ├── planner.md           ← Task decomposition
 │       ├── tdd-guide.md         ← Test-first enforcement
@@ -116,12 +116,12 @@ test commands, and linter.
 ## Example: Go + go-zero
 
 ```
-> /autocode-new
+> /autocode-flow:autocode-new
 📋 Detected: Go / go-zero / golangci-lint / GitHub Actions
 ... (answers a few questions) ...
 ✅ Pipeline generated!
 
-> /autocode 新增用户注册功能
+> /autocode-flow:autocode 新增用户注册功能
 
 ═══ Phase 1: PLAN ═══
   4 steps: model → logic → handler → integration test
@@ -156,11 +156,11 @@ test commands, and linter.
 
 ```
 autocode-flow (plugin)
-├── /autocode-new ──── scan → interview → generate config
-├── /autocode ──────── load config → plan → tdd → code → test → verify
-├── agents/ ────────── scanner, interviewer, generator
-├── templates/ ─────── project-specific file templates
-└── scripts/ ──────── scan-project.sh (tech stack detection)
+├── /autocode-flow:autocode-new ── scan → interview → generate config
+├── /autocode-flow:autocode ────── load config → plan → tdd → code → test → verify
+├── agents/ ───────────────────── scanner, interviewer, generator
+├── templates/ ────────────────── project-specific file templates
+└── scripts/ ──────────────────── scan-project.sh (tech stack detection)
 ```
 
 ## License

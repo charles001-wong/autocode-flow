@@ -2,7 +2,7 @@
 description: Fully autonomous development pipeline. Give it a feature description or PRD file and it will plan, write tests, implement code, run tests, and verify — all automatically with zero human intervention.
 ---
 
-# /autocode — Autonomous Development Pipeline
+# /autocode-flow:autocode — Autonomous Development Pipeline
 
 Execute the full development pipeline automatically: **Plan → TDD → Code → Test → Verify**.
 
@@ -11,9 +11,9 @@ No human intervention required. Just describe what you want or point to a PRD fi
 ## Input
 
 $ARGUMENTS — One of:
-- A feature description in natural language: `/autocode 新增用户登录注册功能`
-- A PRD file reference: `/autocode prd @docs/user-auth-prd.md`
-- A GitHub issue URL: `/autocode issue https://github.com/org/repo/issues/42`
+- A feature description in natural language: `/autocode-flow:autocode 新增用户登录注册功能`
+- A PRD file reference: `/autocode-flow:autocode prd @docs/user-auth-prd.md`
+- A GitHub issue URL: `/autocode-flow:autocode issue https://github.com/org/repo/issues/42`
 
 ## Orchestration Flow
 
@@ -22,7 +22,7 @@ between phases. Each phase's output feeds directly into the next phase.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    /autocode Pipeline                                │
+│               /autocode-flow:autocode Pipeline                       │
 │                                                                      │
 │  ┌────────┐  ┌────────┐  ┌────────┐  ┌────────┐  ┌────────────┐   │
 │  │  PLAN  │─►│  TDD   │─►│  CODE  │─►│  TEST  │─►│   VERIFY   │   │

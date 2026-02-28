@@ -2,7 +2,7 @@
 description: Scan current project and generate a project-specific autocode development pipeline (agents, commands, rules, hooks). Interactive setup wizard.
 ---
 
-# /autocode-new — Generate Project-Specific Dev Pipeline
+# /autocode-flow:autocode-new — Generate Project-Specific Dev Pipeline
 
 This command bootstraps a complete `autocode` development pipeline for the current project
 through a 3-phase workflow: **Scan → Interview → Generate**.
