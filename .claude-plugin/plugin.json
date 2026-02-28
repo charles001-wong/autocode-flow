@@ -26,6 +26,5 @@
     "./agents/autocode-interviewer.md",
     "./agents/autocode-generator.md"
   ],
-  "rules": ["./rules/"],
   "hooks": "./hooks/hooks.json"
 }
