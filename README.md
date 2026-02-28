@@ -1,83 +1,71 @@
 # autocode-flow
 
-A Claude Code plugin that generates **project-specific** automated development pipelines.
+**One command, fully autonomous development.** Describe a feature, get working tested code.
 
-Scan your project → answer a few questions → get a complete `autocode` system with agents, commands, rules, and hooks tailored to your exact tech stack.
+```
+/autocode add user login & registration
+```
 
-## What It Does
+```
+PLAN ──► TDD ──► CODE ──► TEST ──► VERIFY ──► DONE
+ (all automatic, zero human intervention)
+```
+
+## How It Works
+
+### Step 1: Setup (once per project)
 
 ```
 /autocode-new
-    │
-    ├─ Phase 1: Scan ──── detects language, framework, test tools, CI, linter
-    ├─ Phase 2: Interview ── asks your preferences (TDD, coverage, E2E, deploy)
-    └─ Phase 3: Generate ─── writes project-specific pipeline files
 ```
 
-### Generated Output
+Scans your project, asks a few questions, generates a project-specific pipeline config.
+
+### Step 2: Build features (every time)
 
 ```
-your-project/
-├── .cursor/
-│   ├── rules/
-│   │   ├── autocode-workflow.mdc    # Pipeline discipline
-│   │   ├── coding-style.mdc        # Language-specific standards
-│   │   └── testing.mdc             # TDD & coverage enforcement
-│   └── skills/
-│       └── autocode/
-│           ├── SKILL.md             # Pipeline entry point
-│           └── config.json          # Your pipeline configuration
-├── .claude/
-│   ├── agents/
-│   │   ├── planner.md              # Task decomposition
-│   │   ├── tdd-guide.md            # RED→GREEN→REFACTOR
-│   │   ├── code-reviewer.md        # Quality & security review
-│   │   └── e2e-runner.md           # E2E test management
-│   ├── commands/
-│   │   ├── plan.md                 # /plan command
-│   │   ├── tdd.md                  # /tdd command
-│   │   ├── code.md                 # /code command
-│   │   ├── test.md                 # /test command
-│   │   ├── e2e.md                  # /e2e command (if enabled)
-│   │   └── deploy.md              # /deploy command (if enabled)
-│   └── hooks/
-│       └── hooks.json              # Auto-lint, coverage reminders
-└── docs/
-    └── autocode/
-        └── pipeline.md             # Human-readable pipeline docs
+/autocode add user login & registration
+/autocode prd @docs/user-auth-prd.md
+/autocode Fix the race condition in order processing
 ```
+
+The pipeline runs **fully automatically**:
+
+| Phase     | What Happens                                         |
+|-----------|------------------------------------------------------|
+| **PLAN**  | Decomposes requirement into ordered atomic steps     |
+| **TDD**   | Writes all test files first (RED phase)              |
+| **CODE**  | Implements minimum code per step until GREEN         |
+| **TEST**  | Runs full suite, loops until coverage target met     |
+| **VERIFY**| Lints, self-reviews, auto-fixes quality issues       |
+| **E2E**   | Writes & runs E2E tests (if enabled)                 |
+| **DONE**  | Reports results, suggests `git commit`               |
+
+**No human intervention between phases.** It plans, codes, tests, and verifies in one shot.
 
 ## Installation
 
-### Option 1: From GitHub (recommended)
+### Option 1: From GitHub
 
 ```bash
-# Add the marketplace (one-time)
-claude plugin marketplace add github:charles001-wong/autocode-flow
-
-# Install the plugin
+claude plugin marketplace add github:charles/autocode-flow
 claude plugin install autocode-flow@autocode-flow
 ```
 
 ### Option 2: From local directory
 
 ```bash
-# Clone or download to any location
-git clone https://github.com/charles001-wong/autocode-flow.git ~/autocode-flow
-
-# Install from local path
 claude plugin install --path ~/autocode-flow
 ```
 
-### Option 3: Manual copy
+### Option 3: Manual
 
 ```bash
-# Copy to Claude's plugin cache directly
 mkdir -p ~/.claude/plugins/cache/autocode-flow/autocode-flow/1.0.0
 cp -r . ~/.claude/plugins/cache/autocode-flow/autocode-flow/1.0.0/
 ```
 
-Then enable in `~/.claude/settings.json`:
+Add to `~/.claude/settings.json`:
 ```json
 {
   "enabledPlugins": {
@@ -86,31 +74,36 @@ Then enable in `~/.claude/settings.json`:
 }
 ```
 
-## Usage
+## What Gets Generated
 
-Navigate to any project and run:
+After `/autocode-new`, your project gets:
 
 ```
-/autocode-new
+your-project/
+├── .claude/
+│   ├── commands/
+│   │   └── autocode.md          ← /autocode <feature> entry point
+│   └── agents/
+│       ├── planner.md           ← Task decomposition
+│       ├── tdd-guide.md         ← Test-first enforcement
+│       ├── code-reviewer.md     ← Quality verification
+│       └── e2e-runner.md        ← E2E tests (if enabled)
+├── .cursor/
+│   ├── rules/
+│   │   ├── autocode-workflow.mdc
+│   │   ├── coding-style.mdc
+│   │   └── testing.mdc
+│   └── skills/
+│       └── autocode/
+│           ├── SKILL.md
+│           └── config.json      ← Your pipeline settings
+└── docs/autocode/pipeline.md
 ```
 
-The wizard will:
-1. **Scan** your project and show detected tech stack
-2. **Interview** you about each pipeline stage (Plan, TDD, Code, Test, E2E, CI/CD)
-3. **Generate** all pipeline files customized to your project
+All files are **project-specific** — generated with your actual language, framework,
+test commands, and linter.
 
-After generation, use the pipeline commands:
-
-| Command   | Description                          |
-|-----------|--------------------------------------|
-| `/plan`   | Analyze requirements, create plan    |
-| `/tdd`    | Start TDD cycle (RED→GREEN→REFACTOR)|
-| `/code`   | Implement following coding standards |
-| `/test`   | Run tests and check coverage         |
-| `/e2e`    | Run end-to-end tests (if enabled)    |
-| `/deploy` | Check deployment readiness           |
-
-## Supported Tech Stacks
+## Supported Stacks
 
 | Language   | Frameworks                    | Test Tools                |
 |------------|-------------------------------|---------------------------|
@@ -120,27 +113,54 @@ After generation, use the pipeline commands:
 | Python     | FastAPI, Django, Flask        | pytest, hypothesis        |
 | Rust       | Actix, Axum                  | cargo test                |
 
-## Customization
+## Example: Go + go-zero
 
-After generation, you can:
-- Edit `config.json` to adjust settings
-- Modify individual agent/command/rule files
-- Re-run `/autocode-new` to regenerate (with overwrite protection)
+```
+> /autocode-new
+📋 Detected: Go / go-zero / golangci-lint / GitHub Actions
+... (answers a few questions) ...
+✅ Pipeline generated!
+
+> /autocode 新增用户注册功能
+
+═══ Phase 1: PLAN ═══
+  4 steps: model → logic → handler → integration test
+
+═══ Phase 2: TDD ═══
+  Writing tests... 12 test cases across 4 files
+  Running: go test ./... → FAIL (expected)
+
+═══ Phase 3: CODE ═══
+  Step 1/4: user model ✅
+  Step 2/4: register logic ✅
+  Step 3/4: register handler ✅
+  Step 4/4: integration wiring ✅
+
+═══ Phase 4: TEST ═══
+  go test ./... → PASS (12/12)
+  Coverage: 87% (target: 80%) ✅
+
+═══ Phase 5: VERIFY ═══
+  golangci-lint run → clean ✅
+  Self-review → no issues ✅
+
+═══════════════════════════════════════
+  autocode complete: 用户注册功能
+  Tests: 12 cases, Coverage: 87%
+  Files: 8 created
+  Ready: git add -A && git commit -m "feat: add user registration"
+═══════════════════════════════════════
+```
 
 ## Architecture
 
 ```
-autocode-flow plugin
-├── commands/autocode-new.md     ← Entry point (/autocode-new)
-├── agents/
-│   ├── autocode-scanner.md      ← Phase 1: detect tech stack
-│   ├── autocode-interviewer.md  ← Phase 2: collect preferences
-│   └── autocode-generator.md   ← Phase 3: write pipeline files
-├── skills/autocode-flow/
-│   └── SKILL.md                 ← Full workflow reference
-├── templates/                   ← Templates for generated files
-├── scripts/scan-project.sh     ← Bash scanner
-└── rules/autocode-flow.md      ← Generation quality rules
+autocode-flow (plugin)
+├── /autocode-new ──── scan → interview → generate config
+├── /autocode ──────── load config → plan → tdd → code → test → verify
+├── agents/ ────────── scanner, interviewer, generator
+├── templates/ ─────── project-specific file templates
+└── scripts/ ──────── scan-project.sh (tech stack detection)
 ```
 
 ## License

@@ -1,65 +1,48 @@
 ---
 name: autocode
 description: >
-  Project-specific automated development pipeline for {{project_name}}.
-  Orchestrates plan → tdd → code → test → e2e → deploy workflow using
-  {{language}} / {{framework}} conventions. Use when the user starts a new feature,
-  fixes a bug, or asks to follow the dev workflow.
+  Autonomous development pipeline for {{project_name}}.
+  Run "/autocode <feature description>" to auto-execute the full
+  plan → tdd → code → test → verify pipeline. No human intervention needed.
 version: 1.0.0
 generated_by: autocode-flow
 ---
 
-# autocode — {{project_name}} Development Pipeline
+# autocode — {{project_name}}
 
-Automated development workflow tailored for this **{{language}}** project
-{{#if framework}}using **{{framework}}**{{/if}}.
+Run `/autocode <what you want to build>` and the entire pipeline executes automatically.
 
-## Pipeline Stages
+## Usage
 
 ```
-/plan → /tdd → /code → /test{{#if e2e_enabled}} → /e2e{{/if}}{{#if deploy_enabled}} → /deploy{{/if}}
+/autocode 新增用户登录注册功能
+/autocode prd @docs/feature-x.md
+/autocode Fix the N+1 query in order listing
 ```
 
-## Quick Start
+## What Happens
 
-1. **Start a feature**: Run `/plan` with a description of what you want to build
-2. **Write tests first**: Run `/tdd` to create test stubs based on the plan
-3. **Implement**: Run `/code` or start coding — the agent follows project conventions
-4. **Verify**: Run `/test` to execute tests and check coverage
-{{#if e2e_enabled}}5. **E2E**: Run `/e2e` to run end-to-end tests{{/if}}
-{{#if deploy_enabled}}6. **Deploy**: Run `/deploy` to check deployment readiness{{/if}}
+```
+PLAN ──► TDD ──► CODE ──► TEST ──► VERIFY{{#if e2e_enabled}} ──► E2E{{/if}} ──► DONE
+```
 
-## Project Context
+1. **PLAN** — Decomposes your requirement into atomic steps
+2. **TDD** — Writes all test files first (RED phase)
+3. **CODE** — Implements minimum code per step until tests pass (GREEN)
+4. **TEST** — Runs full suite, ensures {{coverage_target}}% coverage
+5. **VERIFY** — Lints, self-reviews, fixes quality issues
+{{#if e2e_enabled}}6. **E2E** — Writes and runs end-to-end tests{{/if}}
+7. **SUMMARY** — Reports results, suggests commit
+
+## Project Config
 
 | Property         | Value                        |
 |------------------|------------------------------|
 | Language         | {{language}}                 |
 | Framework        | {{framework}}                |
-| Package Manager  | {{package_manager}}          |
-| Test Framework   | {{test_framework}}           |
-| Test Command     | `{{test_runner_cmd}}`        |
-| Linter           | {{linter}}                   |
-| CI/CD            | {{ci_cd}}                    |
-| Coverage Target  | {{coverage_target}}%         |
+| Test runner      | `{{test_runner_cmd}}`        |
+| Coverage cmd     | `{{coverage_cmd}}`           |
+| Coverage target  | {{coverage_target}}%         |
+| Linter           | `{{lint_cmd}}`               |
 
-## Configuration
-
-Full pipeline configuration is stored in [config.json](config.json).
-To reconfigure, run `/autocode-new` again or edit `config.json` directly.
-
-## Agents
-
-| Agent            | Purpose                                        |
-|------------------|-------------------------------------------------|
-| `planner`        | Decomposes features into implementation steps   |
-| `tdd-guide`      | Enforces test-first development                 |
-| `code-reviewer`  | Reviews code quality, security, style           |
-{{#if e2e_enabled}}| `e2e-runner`     | Manages end-to-end test execution               |{{/if}}
-
-## Rules
-
-| Rule               | Scope                                         |
-|--------------------|-----------------------------------------------|
-| `autocode-workflow` | Always — enforces pipeline discipline          |
-| `coding-style`     | `{{source_glob}}` — language-specific style    |
-| `testing`          | `{{test_glob}}` — test conventions             |
+Full config: [config.json](config.json)
