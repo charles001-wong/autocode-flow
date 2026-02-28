@@ -4,10 +4,10 @@
   "description": "Autonomous dev pipeline generator. /autocode-new scans & configures, /autocode <feature> auto-executes plan → tdd → code → test → verify with zero human intervention.",
   "author": {
     "name": "Charles",
-    "url": "https://github.com/charles"
+    "url": "https://github.com/charles001-wong"
   },
-  "homepage": "https://github.com/charles/autocode-flow",
-  "repository": "https://github.com/charles/autocode-flow",
+  "homepage": "https://github.com/charles001-wong/autocode-flow",
+  "repository": "https://github.com/charles001-wong/autocode-flow",
   "license": "MIT",
   "keywords": [
     "autocode",

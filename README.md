@@ -48,7 +48,7 @@ The pipeline runs **fully automatically**:
 ### Option 1: From GitHub
 
 ```bash
-claude plugin marketplace add github:charles/autocode-flow
+claude plugin marketplace add github:charles001-wong/autocode-flow
 claude plugin install autocode-flow@autocode-flow
 ```
 
