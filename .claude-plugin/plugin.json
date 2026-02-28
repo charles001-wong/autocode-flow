@@ -1,0 +1,32 @@
+{
+  "name": "autocode-flow",
+  "version": "1.0.0",
+  "description": "Meta-plugin that scans your project, interviews you about workflow preferences, and generates a project-specific autocode development pipeline (skills, agents, commands, rules, hooks).",
+  "author": {
+    "name": "Charles",
+    "url": "https://github.com/charles"
+  },
+  "homepage": "https://github.com/charles/autocode-flow",
+  "repository": "https://github.com/charles/autocode-flow",
+  "license": "MIT",
+  "keywords": [
+    "autocode",
+    "workflow",
+    "pipeline",
+    "tdd",
+    "code-review",
+    "automation",
+    "scaffolding",
+    "meta-skill",
+    "project-setup"
+  ],
+  "commands": ["./commands/"],
+  "skills": ["./skills/"],
+  "agents": [
+    "./agents/autocode-scanner.md",
+    "./agents/autocode-interviewer.md",
+    "./agents/autocode-generator.md"
+  ],
+  "rules": ["./rules/"],
+  "hooks": "./hooks/hooks.json"
+}

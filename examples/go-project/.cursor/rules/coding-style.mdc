@@ -1,0 +1,56 @@
+---
+description: "Go coding standards for order-service"
+globs: "**/*.go"
+alwaysApply: false
+---
+
+# Coding Standards — Go / go-zero
+
+## File Organization
+
+- Maximum file length: **400 lines**
+- One primary concern per file
+- Group related files in directories by feature/domain, not by type
+
+## Naming Conventions
+
+- **Files**: `snake_case.go`, test files `snake_case_test.go`
+- **Exported**: `PascalCase` for public types, functions, constants
+- **Unexported**: `camelCase` for private identifiers
+- **Interfaces**: verb-er pattern (`Reader`, `Writer`, `Closer`)
+- **Packages**: short, lowercase, singular (`user`, `auth`, `order`)
+
+## Error Handling
+
+Style: **explicit returns**
+
+```go
+// ✅ Always check errors explicitly
+result, err := doSomething()
+if err != nil {
+    return fmt.Errorf("doSomething failed: %w", err)
+}
+
+// ❌ Never ignore errors
+result, _ := doSomething()
+```
+
+## Code Quality
+
+- No commented-out code in commits
+- No debug/print statements in production code
+- Prefer immutable data structures where possible
+- Functions should do one thing, under 50 lines
+- Validate inputs at system boundaries
+- Run linter before committing: `golangci-lint run`
+
+## go-zero Conventions
+
+- Follow the three-layer architecture: **Handler → Logic → Model**
+- Never put business logic in handlers
+- Use `conf.MustLoad` for configuration loading
+- Propagate `ctx` through all layers
+- Define types in `.api` files and generate with `goctl`
+- Use `logx` for structured logging, not `fmt.Println` or `log`
+- Use `sqlx` for database operations with proper error handling
+- Register middleware in route configuration, not inline

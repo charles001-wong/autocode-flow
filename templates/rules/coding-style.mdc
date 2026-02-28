@@ -1,0 +1,106 @@
+---
+description: "{{language}} coding standards for {{project_name}}"
+globs: "{{source_glob}}"
+alwaysApply: false
+---
+
+# Coding Standards — {{language}}{{#if framework}} / {{framework}}{{/if}}
+
+## File Organization
+
+- Maximum file length: **{{code_max_file_lines}} lines**
+- One primary concern per file
+- Group related files in directories by feature/domain, not by type
+
+## Naming Conventions
+
+{{#go}}
+- **Files**: `snake_case.go`, test files `snake_case_test.go`
+- **Exported**: `PascalCase` for public types, functions, constants
+- **Unexported**: `camelCase` for private identifiers
+- **Interfaces**: verb-er pattern (`Reader`, `Writer`, `Closer`)
+- **Packages**: short, lowercase, singular (`user`, `auth`, `order`)
+{{/go}}
+
+{{#typescript}}
+- **Files**: `kebab-case.ts`, components `PascalCase.tsx`
+- **Types/Interfaces**: `PascalCase`
+- **Functions/Variables**: `camelCase`
+- **Constants**: `UPPER_SNAKE_CASE` for true constants, `camelCase` for computed
+- **React components**: `PascalCase` function components
+{{/typescript}}
+
+{{#python}}
+- **Files**: `snake_case.py`
+- **Classes**: `PascalCase`
+- **Functions/Variables**: `snake_case`
+- **Constants**: `UPPER_SNAKE_CASE`
+- **Private**: prefix with `_`
+{{/python}}
+
+## Error Handling
+
+Style: **{{code_error_handling}}**
+
+{{#go}}
+```go
+// ✅ Always check errors explicitly
+result, err := doSomething()
+if err != nil {
+    return fmt.Errorf("doSomething failed: %w", err)
+}
+
+// ❌ Never ignore errors
+result, _ := doSomething()
+```
+{{/go}}
+
+{{#typescript}}
+```typescript
+// ✅ Use try-catch with specific error types
+try {
+  const result = await fetchData();
+} catch (error) {
+  if (error instanceof NetworkError) {
+    logger.error('Network failure', { error });
+    throw new AppError('Service unavailable', { cause: error });
+  }
+  throw error;
+}
+
+// ❌ Never swallow errors
+try { await fetchData(); } catch {}
+```
+{{/typescript}}
+
+{{#python}}
+```python
+# ✅ Catch specific exceptions
+try:
+    result = do_something()
+except ValueError as e:
+    logger.error("Invalid input", exc_info=e)
+    raise AppError("Processing failed") from e
+
+# ❌ Never use bare except
+try:
+    result = do_something()
+except:
+    pass
+```
+{{/python}}
+
+## Code Quality
+
+- No commented-out code in commits
+- No debug/print statements in production code
+- Prefer immutable data structures where possible
+- Functions should do one thing, under 50 lines
+- Validate inputs at system boundaries
+- Run linter before committing: `{{lint_cmd}}`
+
+{{#if framework}}
+## {{framework}} Conventions
+
+{{framework_conventions}}
+{{/if}}

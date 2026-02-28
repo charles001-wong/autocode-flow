@@ -1,0 +1,54 @@
+{
+  "_generated_by": "autocode-flow v1.0.0",
+  "_generated_at": "2026-02-28T10:00:00Z",
+  "project": {
+    "name": "order-service",
+    "language": "go",
+    "framework": "go-zero",
+    "package_manager": "go mod",
+    "source_dirs": ["cmd/", "internal/", "pkg/"],
+    "test_framework": "go test",
+    "test_runner_cmd": "go test ./...",
+    "linter": "golangci-lint",
+    "ci_cd": "github-actions",
+    "has_docker": true,
+    "has_monorepo": false
+  },
+  "plan": {
+    "enabled": true,
+    "generate_docs": "lightweight",
+    "docs_location": "docs/plans",
+    "auto_decompose": true
+  },
+  "tdd": {
+    "enabled": true,
+    "style": "strict",
+    "coverage_target": 80,
+    "extra": {
+      "use_testify": true,
+      "table_driven": true
+    }
+  },
+  "code": {
+    "max_file_lines": 400,
+    "error_handling": "explicit returns",
+    "linter": "golangci-lint",
+    "comments": "critical paths only"
+  },
+  "test": {
+    "file_location": "co-located",
+    "integration_strategy": "testcontainers",
+    "auto_run": true
+  },
+  "e2e": {
+    "enabled": false,
+    "tool": "none",
+    "scope": "none",
+    "environment": "none"
+  },
+  "cicd": {
+    "manage_config": "read-only",
+    "deploy_target": "docker",
+    "pre_merge_checks": "lint + test"
+  }
+}

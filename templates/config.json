@@ -1,0 +1,51 @@
+{
+  "_generated_by": "autocode-flow v1.0.0",
+  "_generated_at": "{{timestamp}}",
+  "project": {
+    "name": "{{project_name}}",
+    "language": "{{language}}",
+    "framework": "{{framework}}",
+    "package_manager": "{{package_manager}}",
+    "source_dirs": {{source_dirs}},
+    "test_framework": "{{test_framework}}",
+    "test_runner_cmd": "{{test_runner_cmd}}",
+    "linter": "{{linter}}",
+    "ci_cd": "{{ci_cd}}",
+    "has_docker": {{has_docker}},
+    "has_monorepo": {{has_monorepo}}
+  },
+  "plan": {
+    "enabled": {{plan_enabled}},
+    "generate_docs": "{{plan_generate_docs}}",
+    "docs_location": "{{plan_docs_location}}",
+    "auto_decompose": {{plan_auto_decompose}}
+  },
+  "tdd": {
+    "enabled": {{tdd_enabled}},
+    "style": "{{tdd_style}}",
+    "coverage_target": {{coverage_target}},
+    "extra": {}
+  },
+  "code": {
+    "max_file_lines": {{code_max_file_lines}},
+    "error_handling": "{{code_error_handling}}",
+    "linter": "{{linter}}",
+    "comments": "{{code_comments}}"
+  },
+  "test": {
+    "file_location": "{{test_file_location}}",
+    "integration_strategy": "{{test_integration_strategy}}",
+    "auto_run": {{test_auto_run}}
+  },
+  "e2e": {
+    "enabled": {{e2e_enabled}},
+    "tool": "{{e2e_tool}}",
+    "scope": "{{e2e_scope}}",
+    "environment": "{{e2e_environment}}"
+  },
+  "cicd": {
+    "manage_config": "{{cicd_manage_config}}",
+    "deploy_target": "{{cicd_deploy_target}}",
+    "pre_merge_checks": "{{cicd_pre_merge_checks}}"
+  }
+}

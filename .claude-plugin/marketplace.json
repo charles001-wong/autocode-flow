@@ -1,0 +1,37 @@
+{
+  "name": "autocode-flow",
+  "owner": {
+    "name": "Charles"
+  },
+  "metadata": {
+    "description": "Generate project-specific automated development pipelines via scan → interview → generate workflow"
+  },
+  "plugins": [
+    {
+      "name": "autocode-flow",
+      "source": "./",
+      "description": "Meta-plugin: scans project, interviews developer, generates a complete autocode pipeline (agents, commands, rules, hooks) tailored to the codebase",
+      "author": {
+        "name": "Charles"
+      },
+      "homepage": "https://github.com/charles/autocode-flow",
+      "repository": "https://github.com/charles/autocode-flow",
+      "license": "MIT",
+      "keywords": [
+        "autocode",
+        "workflow",
+        "pipeline",
+        "scaffolding",
+        "tdd",
+        "code-review"
+      ],
+      "category": "workflow",
+      "tags": [
+        "meta-skill",
+        "project-setup",
+        "automation",
+        "pipeline"
+      ]
+    }
+  ]
+}

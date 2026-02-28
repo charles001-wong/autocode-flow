@@ -1,0 +1,63 @@
+---
+description: "Testing standards and TDD enforcement for order-service"
+globs: "**/*_test.go"
+alwaysApply: false
+---
+
+# Testing Standards — order-service
+
+## Coverage Target: 80%
+
+## TDD Style: Strict TDD — Tests MUST Come First
+
+1. **RED**: Write a failing test that specifies the behavior
+2. **GREEN**: Write minimum code to make it pass
+3. **REFACTOR**: Clean up while tests stay green
+
+NEVER write implementation before its test exists.
+
+## Test File Conventions
+
+| Convention  | Value                                          |
+|-------------|------------------------------------------------|
+| Location    | Co-located (`*_test.go` next to source file)   |
+| Naming      | `*_test.go`                                    |
+| Runner      | `go test ./...`                                |
+| Coverage    | `go test ./... -coverprofile=cover.out`        |
+
+## Test Structure
+
+Use table-driven tests for multiple scenarios:
+
+```go
+func TestCalculateTotal(t *testing.T) {
+    tests := []struct {
+        name     string
+        items    []Item
+        expected float64
+    }{
+        {"empty cart", nil, 0},
+        {"single item", []Item{{Price: 10}}, 10},
+        {"multiple items", []Item{{Price: 10}, {Price: 20}}, 30},
+    }
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            got := CalculateTotal(tt.items)
+            assert.Equal(t, tt.expected, got)
+        })
+    }
+}
+```
+
+## Test Categories
+
+1. **Unit tests**: Isolated, fast, mock external dependencies
+2. **Integration tests**: Test component boundaries with testcontainers
+
+## Rules
+
+- Each test tests ONE behavior
+- Test names describe the scenario, not the implementation
+- No shared mutable state between tests
+- Mock external services (APIs, databases) in unit tests
+- Integration tests use testcontainers for real dependencies

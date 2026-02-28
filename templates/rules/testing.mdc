@@ -1,0 +1,102 @@
+---
+description: "Testing standards and TDD enforcement for {{project_name}}"
+globs: "{{test_glob}}"
+alwaysApply: false
+---
+
+# Testing Standards — {{project_name}}
+
+## Coverage Target: {{coverage_target}}%
+
+## TDD Style: {{tdd_style}}
+
+{{#if tdd_strict}}
+### Strict TDD — Tests MUST Come First
+
+1. **RED**: Write a failing test that specifies the behavior
+2. **GREEN**: Write minimum code to make it pass
+3. **REFACTOR**: Clean up while tests stay green
+
+NEVER write implementation before its test exists.
+{{/if}}
+
+## Test File Conventions
+
+| Convention  | Value                              |
+|-------------|------------------------------------|
+| Location    | {{test_file_location}}             |
+| Naming      | {{test_file_naming}}               |
+| Runner      | `{{test_runner_cmd}}`              |
+| Coverage    | `{{coverage_cmd}}`                 |
+
+## Test Structure
+
+{{#go}}
+Use table-driven tests for multiple scenarios:
+
+```go
+func TestCalculateTotal(t *testing.T) {
+    tests := []struct {
+        name     string
+        items    []Item
+        expected float64
+    }{
+        {"empty cart", nil, 0},
+        {"single item", []Item{{Price: 10}}, 10},
+        {"multiple items", []Item{{Price: 10}, {Price: 20}}, 30},
+    }
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            got := CalculateTotal(tt.items)
+            if got != tt.expected {
+                t.Errorf("got %v, want %v", got, tt.expected)
+            }
+        })
+    }
+}
+```
+{{/go}}
+
+{{#typescript}}
+Use describe/it blocks with clear scenario names:
+
+```typescript
+describe('calculateTotal', () => {
+  it('returns 0 for empty cart', () => {
+    expect(calculateTotal([])).toBe(0);
+  });
+
+  it('sums item prices correctly', () => {
+    const items = [{ price: 10 }, { price: 20 }];
+    expect(calculateTotal(items)).toBe(30);
+  });
+});
+```
+{{/typescript}}
+
+{{#python}}
+Use descriptive function names with pytest:
+
+```python
+def test_calculate_total_empty_cart():
+    assert calculate_total([]) == 0
+
+def test_calculate_total_sums_prices():
+    items = [Item(price=10), Item(price=20)]
+    assert calculate_total(items) == 30
+```
+{{/python}}
+
+## Test Categories
+
+1. **Unit tests**: Isolated, fast, mock external dependencies
+2. **Integration tests**: Test component boundaries with real dependencies
+{{#if e2e_enabled}}3. **E2E tests**: Full user workflows through the real system{{/if}}
+
+## Rules
+
+- Each test tests ONE behavior
+- Test names describe the scenario, not the implementation
+- No shared mutable state between tests
+- Mock external services (APIs, databases) in unit tests
+- Integration tests may use {{test_integration_strategy}}

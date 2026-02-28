@@ -1,0 +1,38 @@
+---
+description: Enforces the autocode development pipeline discipline for order-service
+alwaysApply: true
+---
+
+# autocode Workflow — order-service
+
+## Pipeline Order
+
+Follow this sequence for any non-trivial change:
+
+1. **Plan** → Decompose the task before writing code
+2. **TDD** → Write tests that define the expected behavior
+3. **Code** → Implement the minimum to pass tests
+4. **Test** → Verify coverage meets 80%
+
+## When to Skip Steps
+
+- **Trivial fixes** (typos, comment updates): skip Plan and TDD
+- **Documentation-only changes**: skip TDD and Test
+- **Config changes**: skip TDD, run Test to verify no breakage
+
+## Agents
+
+Use these agents proactively:
+- `planner` — when starting a new feature or refactoring
+- `tdd-guide` — when writing any new logic
+- `code-reviewer` — after completing implementation, before commit
+
+## Commands
+
+| Command   | Purpose                          |
+|-----------|----------------------------------|
+| `/plan`   | Create implementation plan       |
+| `/tdd`    | Start TDD cycle                  |
+| `/code`   | Implement with standards         |
+| `/test`   | Run tests and check coverage     |
+| `/deploy` | Check deployment readiness       |

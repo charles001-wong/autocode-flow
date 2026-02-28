@@ -1,0 +1,41 @@
+---
+description: Enforces the autocode development pipeline discipline for {{project_name}}
+alwaysApply: true
+---
+
+# autocode Workflow — {{project_name}}
+
+## Pipeline Order
+
+Follow this sequence for any non-trivial change:
+
+1. **Plan** → Decompose the task before writing code
+2. **TDD** → Write tests that define the expected behavior
+3. **Code** → Implement the minimum to pass tests
+4. **Test** → Verify coverage meets {{coverage_target}}%
+{{#if e2e_enabled}}5. **E2E** → Run end-to-end tests for user-facing changes{{/if}}
+{{#if deploy_enabled}}6. **Deploy** → Verify deployment readiness{{/if}}
+
+## When to Skip Steps
+
+- **Trivial fixes** (typos, comment updates): skip Plan and TDD
+- **Documentation-only changes**: skip TDD and Test
+- **Config changes**: skip TDD, run Test to verify no breakage
+
+## Agents
+
+Use these agents proactively:
+- `planner` — when starting a new feature or refactoring
+- `tdd-guide` — when writing any new logic
+- `code-reviewer` — after completing implementation, before commit
+
+## Commands
+
+| Command   | Purpose                          |
+|-----------|----------------------------------|
+| `/plan`   | Create implementation plan       |
+| `/tdd`    | Start TDD cycle                  |
+| `/code`   | Implement with standards         |
+| `/test`   | Run tests and check coverage     |
+{{#if e2e_enabled}}| `/e2e`    | Run end-to-end tests             |{{/if}}
+{{#if deploy_enabled}}| `/deploy` | Check deployment readiness       |{{/if}}
